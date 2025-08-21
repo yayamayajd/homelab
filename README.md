@@ -51,15 +51,14 @@ running **TrueNAS**, continuing its role as a NAS:
 -	Pi-hole acting as DNS server and ad-blocker
 
 **Current Network** 
-
 Nginx on the mini PC handles load balancing and redirection:
 
    web
     |
-   Nginx on mini pc(443 TLS termination)--->Harbor
-                                        |--->Traefik Ingress(k3s)
-                                                    |-->services(Cluster ip)
-                                                            |-->Pods(Deployment,Daemoset)
+   Nginx on miniPC(443 TLS termination)--->Harbor
+                                       --->Traefik Ingress(k3s)
+                                                |-->services(Cluster ip)
+                                                        |-->Pods(Deployment,Daemoset)
 
 
 **DNS resolution path**:

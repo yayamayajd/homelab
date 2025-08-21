@@ -22,10 +22,11 @@ The idea is to build a personal playground for learning — a place where I can 
 
 ### K3s cluster:
 
-	-	Mini PC (x86) running Ubuntu LTS 24, acting as the main server
-	-	Raspberry Pi (ARM) running Ubuntu Server, forming a heterogeneous cluster with the mini PC
-	-	The mini PC handles compute workloads, while the Raspberry Pi is used to experiment with IoT edge applications and DNS resolution
-	-	Due to limited hardware, etcd HA is postponed for now, but I plan to gradually expand later
+-	Mini PC (x86) running Ubuntu LTS 24, acting as the main server
+-	Raspberry Pi (ARM) running Ubuntu Server, forming a heterogeneous cluster with the mini PC
+-	The mini PC handles compute workloads, while the Raspberry Pi is used to experiment with IoT edge applications and DNS resolution
+-	Due to limited hardware, etcd HA is postponed for now, but I plan to gradually expand later
+
 
 ### NAS: 
 
@@ -41,13 +42,13 @@ running **TrueNAS**, continuing its role as a NAS:
 
 **mini pc**
 
-    -	Harbor as a private container registry
-    -	Docker for building, pulling, tagging images, and pushing them to Harbor
-    -	K3s master node and control plane, switched from SQLite to etcd
+-	Harbor as a private container registry
+-	Docker for building, pulling, tagging images, and pushing them to Harbor
+-	K3s master node and control plane, switched from SQLite to etcd
 
 **raspberryPi**：
 
-	-	Pi-hole acting as DNS server and ad-blocker
+-	Pi-hole acting as DNS server and ad-blocker
 
 **Current Network** 
 
@@ -69,6 +70,7 @@ Nginx on the mini PC handles load balancing and redirection:
     nginx on mini PC
 
 **Remote access**
+
 Tailscale (in progress) 
 
 

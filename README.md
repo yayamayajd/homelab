@@ -90,6 +90,9 @@ tbc
 
 ### log
 
+**beginning and mid-august**
+
+started the homelab, started with designing and building the infra, deploy monitoring etc...got a lot error, fiexd them, whent further, got more error...it's fine, can feel I become capable quickly after those errors!
 
 **2025.08.24**
 
@@ -112,3 +115,11 @@ For storage, I use a new NAS with TrueNAS installed. It provides NFS for Persist
 **2025.08.25**
 
 fied tailscale, now i can visit home network from outside!
+
+
+**2025.08.27**
+
+fixd music streaming based on tailscale. This is super cool service! both me and my partner benifited of it.
+
+**2025.08.28**
+

@@ -123,3 +123,7 @@ fixd music streaming based on tailscale. This is super cool service! both me and
 
 **2025.08.29**
 The nas side was prepared, gonna start to migrate all the pv to nas（all the pv is hanging under my mini pc via nfs now before nas preprared）
+
+
+**2025.08.31**
+Got a new approch to migrate the pvs!!! Truenas CSI, sounds a perfect solution, sounds much better than manuelly use UID and GID for nfs!!!

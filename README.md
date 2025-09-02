@@ -127,3 +127,18 @@ The nas side was prepared, gonna start to migrate all the pv to nas（all the pv
 
 **2025.08.31**
 Got a new approch to migrate the pvs!!! Truenas CSI, sounds a perfect solution, sounds much better than manuelly use UID and GID for nfs!!!
+
+
+**2025.09.01**
+
+Harbor suddenly returned 502. I thought maybe the containers had crashed, so I decided to run docker compose down and then bring them back up. But before running up, I forgot to run ./prepare, which caused up to wipe out all my images. Harbor became accessible again, but everything was reset to zero. A huge operations disaster! I had no choice but to pull down all the images one by one, retag them, and push them back into the registry… I almost cried. I will never randomly run up again!!!!!!
+
+**2025.09.02**
+
+While learning Calico’s architecture, the lecturer mentioned that Calico’s VXLAN technology can perform encapsulation and decapsulation directly in kernel space. This allows it to bypass the interactions (copies) between user space and kernel space, letting operations run directly in kernel mode. I was a bit confused, so I went back to review the concepts of user space and kernel space. Suddenly I realized their architecture logic is very similar to aircraft systems.
+
+(This summer I actually experienced a Boeing 737 flight simulator. I was shocked at how primitive the operating system looked. Later I learned that this was because it had to run on a highly stable RTOS. Meanwhile, other aircraft systems such as the in-flight entertainment system are more like user-space extensions for scalability. This deepened my understanding of ELISA’s work which I now see as providing a stable Linux kernel integration, or integrating existing RTOS solutions.)
+
+Kernel space must remain absolutely stable, so it restricts the communication channels and enforces specific rules (syscalls, data copies, Ring 0 etc... I also revisited the concept of CPU privilege rings). User space normally runs in Ring 3, while kernel space operations run in Ring 0. To cross from Ring 3 to Ring 0, a syscall is required.
+
+This suddenly made me realize: this architecture and interaction model is very similar to how in Kubernetes, all other components must go through the API server in order to read or write data in etcd! Following that logic, it becomes clear why the architecture is designed this way: for security and consistency.

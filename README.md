@@ -72,7 +72,8 @@ Nginx on the mini PC handles load balancing and redirection.
 
 **Remote access**
 
-Tailscale (in progress) 
+Tailscale
+it was so fun to use tailscale, feel opened a new door! next step is to go further to learn about ACL to limite the risk!
 
 
 ### Observability stack
@@ -122,6 +123,7 @@ fied tailscale, now i can visit home network from outside!
 fixd music streaming based on tailscale. This is super cool service! both me and my partner benifited of it.
 
 **2025.08.29**
+
 The nas side was prepared, gonna start to migrate all the pv to nas（all the pv is hanging under my mini pc via nfs now before nas preprared）
 
 

@@ -142,3 +142,19 @@ While learning Calico’s architecture, the lecturer mentioned that Calico’s V
 Kernel space must remain absolutely stable, so it restricts the communication channels and enforces specific rules (syscalls, data copies, Ring 0 etc... I also revisited the concept of CPU privilege rings). User space normally runs in Ring 3, while kernel space operations run in Ring 0. To cross from Ring 3 to Ring 0, a syscall is required.
 
 This suddenly made me realize: this architecture and interaction model is very similar to how in Kubernetes, all other components must go through the API server in order to read or write data in etcd! Following that logic, it becomes clear why the architecture is designed this way: for security and consistency.
+
+**2025.09.09**
+
+I’ve realized how important it is to balance rest and study. Last week I sat at my computer for too long without noticing, neglected exercise, and overworked my brain. My body sent an alarm: my neck hurt so badly I couldn’t lift my head, and I felt dizzy and exhausted. I decided to take it seriously, restarted my workouts, and after a few days of full rest plus more physical activity, I felt alive again.
+
+This week our classes focused on Traefik. I had worked with Traefik before since it is the default Ingress Controller in K3s, but in my previous usage it was already abstracted by Kubernetes so I just had to call it without thinking too much. This time, the course broke down Traefik’s components and how it actually works, and I learned a lot.
+
+What struck me most was the design idea of how Traefik listens to providers. It gave me a new perspective on how a standardized interface can be used across platforms. For example, with Docker in class: Traefik listens to the socket and consumes JSON-formatted data from it, then dynamically updates routing rules to enable reverse proxy and load balancing. In this way it builds an abstraction layer over the raw socket traffic, hiding away the traditional networking complexity. That is what allows it to work across hybrid environments and it was truly eye-opening.
+
+Then it hit me: as long as the provider returns data in the format Traefik expects (JSON), I could connect it to any system I want. That thought made me both happy and excited, as if I had just discovered a truth (haha). And then it made sense why Kubernetes itself was designed so that everything is exposed as RESTful resources. Once HTTP/HTTPS is solved, you get incredible flexibility and portability.
+
+While watching another video today, I also came across C/S vs. B/S architecture and suddenly realized there is an entire ecosystem and philosophy behind these patterns, which is fascinating.
+
+Yesterday I also learned about the CAP theorem, and it connected so many dots in my earlier understanding of system design. For example, last week I had an insight about system layering in critical systems: the core layers follow CP (consistency plus partition tolerance), while the edge layers are more AP (availability plus partition tolerance). That revelation was liberating.
+
+With this discovery, I have become even more interested in architecture. I have decided to systematically read some books on the topic. I was recommended Designing Data-Intensive Applications (DDIA) and Google’s Site Reliability Engineering. Hopefully I will get the chance to discuss and exchange thoughts with people who have read them too.

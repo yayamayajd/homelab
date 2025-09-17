@@ -160,3 +160,30 @@ While watching another video today, I also came across C/S vs. B/S architecture 
 Yesterday I also learned about the CAP theorem, and it connected so many dots in my earlier understanding of system design. For example, last week I had an insight about system layering in critical systems: the core layers follow CP (consistency plus partition tolerance), while the edge layers are more AP (availability plus partition tolerance). That revelation was liberating.
 
 With this discovery, I have become even more interested in architecture. I have decided to systematically read some books on the topic. I was recommended Designing Data-Intensive Applications (DDIA) and Google’s Site Reliability Engineering. Hopefully I will get the chance to discuss and exchange thoughts with people who have read them too.
+
+
+
+**2025.09.17**
+
+My cluster went through another trial today.
+To improve our home network speed, my boyfriend bought a new 10 Gbps router. To minimize disruption to the existing IP layout, we kept the old IP plan but re-cabled and changed the placement of servers and other devices. Since everything had to be moved physically, I had to shut down all the equipment before rearranging it.
+
+I was extremely nervous. The memory of last time’s sudden power outage disaster was still vivid. But this time, since it was a planned shutdown, I could at least be sure that any service with persistent volumes would not lose data.
+
+After moving the devices and powering them back on, Kubernetes quickly brought the cluster back up. All services returned, including Pi-hole, the one that had caused the previous disaster. This made me appreciate Kubernetes even more, it is just so convenient.
+
+However, Harbor died again with a 502 error. Since Harbor is deployed directly with Docker Compose on the server, I did a compose down and compose up, but then the painful sight appeared: my images were wiped again.
+
+For a moment, I felt complete despair. I had run prepare.sh beforehand, convinced that last time’s mistake would not repeat, but the images still vanished. That meant my previous experience was not enough to save me this time.
+
+Starting troubleshooting from scratch, I discovered Harbor itself was fine. The real issue was that after restarting, the persistent volume was pointing to the wrong path. Later I found out it was actually a permission problem. PostgreSQL did not have the right permissions to access its directory, so it created a new one. Why did I not notice this earlier? Because last time I just used sudo to bypass the permission errors instead of fixing them properly.
+
+The old images were still there, sitting in the original path under registry/docker/registry/v2/blobs/sha256/.
+
+I went back into Kubernetes, retrieved the list of images in use (kubectl get pods -A -o jsonpath='{.spec.containers[*].image}'), and from that list re-pulled, re-tagged, and re-pushed them into Harbor. For Pi-hole, since it runs on an ARM node, I had to push multi-arch images.
+
+I spent the entire evening on this, but in the end, it reinforced the Docker Compose knowledge I have been learning at school.
+I have also become less afraid of shutting down servers or even power outages.
+
+And now with the new setup, our home network is blazing fast. I could not be happier.
+
